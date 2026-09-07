@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aind's Music and Vlog | Official Studio</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --bg-color: #0b0b0e;
+      --card-bg: #141419;
+      --card-hover: #1c1c24;
+      --accent: #ff0055;
+      --accent-alt: #7a00ff;
+      --text: #f5f5f7;
+      --muted: #8e8e93;
+      --border: #22222b;
+      --radius: 12px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text);
+      line-height: 1.5;
+      padding-bottom: 60px;
+    }
+
+    /* Header */
+    header {
+      background: rgba(11, 11, 14, 0.9);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: var(--text);
+      letter-spacing: -0.5px;
+    }
+
+    .brand span {
+      background: linear-gradient(135deg, var(--accent), var(--accent-alt));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .btn-action {
+      background: linear-gradient(135deg, var(--accent), var(--accent-alt));
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+
+    .btn-action:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+
+    /* Hero Banner */
+    .hero {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+
+    .channel-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      position: relative;
+    }
+
+    .channel-avatar {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-alt));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.8rem;
+      color: white;
+      flex-shrink: 0;
+      box-shadow: 0 8px 24px rgba(255, 0, 85, 0.3);
+    }
+
+    .channel-info h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.2rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .channel-info p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      max-width: 650px;
+      margin-bottom: 1rem;
+    }
+
+    .channel-stats {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    /* Main Section & Filters */
+    .main-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .filter-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .filter-btn-group {
+      display: flex;
+      gap: 0.5rem;
+      background: var(--card-bg);
+      padding: 4px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .filter-btn {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--card-hover);
+      color: var(--text);
+    }
+
+    /* Grid Layout */
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .media-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .media-card:hover {
+      transform: translateY(-4px);
+      border-color: #333342;
+    }
+
+    .thumbnail-wrapper {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%; /* 16:9 Aspect Ratio */
+      background: #000;
+    }
+
+    .thumbnail-wrapper img, .thumbnail-wrapper video, .thumbnail-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border: none;
+    }
+
+    .badge-type {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .card-body {
+      padding: 1rem;
+    }
+
+    .card-title {
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      font-size: 0.95rem;
+    }
+
+    .card-meta {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* Modals */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition);
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      width: 90%;
+      max-width: 500px;
+      border-radius: var(--radius);
+      padding: 2rem;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.75rem;
+      background: var(--bg-color);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      outline: none;
+    }
+
+    .form-control:focus {
+      border-color: var(--accent);
+    }
+
+    .media-viewer-container {
+      width: 90%;
+      max-width: 900px;
+      max-height: 75vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .media-viewer-container video, .media-viewer-container img, .media-viewer-container iframe {
+      width: 100%;
+      height: 500px;
+      max-height: 65vh;
+      border-radius: var(--radius);
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header>
+    <div class="nav-container">
+      <a href="#" class="brand">
+        <i class="fa-solid fa-record-vinyl" style="color: var(--accent);"></i>
+        <span>Aind's</span> Music & Vlog
+      </a>
+      <div style="display: flex; gap: 10px;">
+        <!-- DIRECT YOUTUBE CHANNEL LINK -->
+        <a href="https://www.youtube.com/@aindmusicandvlog" target="_blank" class="btn-action" style="background: #222;">
+          <i class="fa-brands fa-youtube" style="color: #ff0000;"></i> YouTube
+        </a>
+        <button class="btn-action" id="openUploadBtn">
+          <i class="fa-solid fa-cloud-arrow-up"></i> Upload Media
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Header -->
+  <section class="hero">
+    <div class="channel-card">
+      <div class="channel-avatar">
+        <i class="fa-solid fa-compact-disc"></i>
+      </div>
+      <div class="channel-info">
+        <h1>Aind's Music and Vlog</h1>
+        <p>Official studio hub for Aind's Music and Vlog. Stream music tracks, wedding films, vlogs, and exclusive photo updates.</p>
+        <div class="channel-stats">
+          <span><i class="fa-solid fa-music"></i> <span id="trackCount">0</span> Music Tracks</span>
+          <span><i class="fa-solid fa-video"></i> <span id="vlogCount">0</span> Vlogs</span>
+          <span><i class="fa-solid fa-camera"></i> <span id="photoCount">0</span> Photos</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content Showcase -->
+  <main class="main-content">
+    <div class="filter-bar">
+      <div class="filter-btn-group">
+        <button class="filter-btn active" data-filter="all">All Drops</button>
+        <button class="filter-btn" data-filter="music">Music</button>
+        <button class="filter-btn" data-filter="vlog">Vlogs</button>
+        <button class="filter-btn" data-filter="photo">Photos</button>
+      </div>
+    </div>
+
+    <div class="media-grid" id="mediaGrid"></div>
+  </main>
+
+  <!-- Upload Modal -->
+  <div class="modal-overlay" id="uploadModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Upload to Studio Hub</h3>
+        <button class="close-btn" id="closeUploadBtn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="uploadForm">
+        <div class="form-group">
+          <label for="mediaTitle">Title / Track Name</label>
+          <input type="text" id="mediaTitle" class="form-control" placeholder="e.g. New Vlog / Track Name" required>
+        </div>
+        <div class="form-group">
+          <label for="mediaCategory">Category</label>
+          <select id="mediaCategory" class="form-control">
+            <option value="music">Music</option>
+            <option value="vlog">Vlog</option>
+            <option value="photo">Photo / Cover Art</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="mediaFile">Select Media File</label>
+          <input type="file" id="mediaFile" class="form-control" accept="image/*,video/*" required>
+        </div>
+        <button type="submit" class="btn-action" style="width: 100%; justify-content: center; margin-top: 1rem;">Publish Content</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Viewer Modal -->
+  <div class="modal-overlay" id="viewModal">
+    <div class="media-viewer-container">
+      <div id="viewerContent" style="width: 100%; text-align: center;"></div>
+      <h2 id="viewerTitle" style="margin: 1rem 0; font-size: 1.2rem;"></h2>
+      <button class="btn-action" id="closeViewBtn">Close Viewer</button>
+    </div>
+  </div>
+
+  <script>
+    // Channel Videos
+    let mediaItems = [
+      {
+        id: '1',
+        title: 'परमेश्वरअ: दुलाड़ बयार तोनोल ते तोलेन जनाबेन',
+        category: 'music',
+        fileType: 'youtube',
+        youtubeId: 'nP2mGI-cN_0',
+        url: 'http://www.youtube.com/watch?v=nP2mGI-cN_0',
+        date: '2026-04-11'
+      },
+      {
+        id: '2',
+        title: 'Dance by Sunday school and youth',
+        category: 'vlog',
+        fileType: 'youtube',
+        youtubeId: 'haVf3LJLCTk',
+        url: 'http://www.youtube.com/watch?v=haVf3LJLCTk',
+        date: '2025-12-29'
+      },
+      {
+        id: '3',
+        title: 'Madhuri & Anuj\'s || Lotapani',
+        category: 'vlog',
+        fileType: 'youtube',
+        youtubeId: 'E1Whl9HsJIE',
+        url: 'http://www.youtube.com/watch?v=E1Whl9HsJIE',
+        date: '2026-02-12'
+      },
+      {
+        id: '4',
+        title: 'Mausi Ka Wedding',
+        category: 'vlog',
+        fileType: 'youtube',
+        youtubeId: 'I-sCujALa0U',
+        url: 'http://www.youtube.com/watch?v=I-sCujALa0U',
+        date: '2026-04-09'
+      },
+      {
+        id: '5',
+        title: 'Our new car!! 🚗🚗💨',
+        category: 'vlog',
+        fileType: 'youtube',
+        youtubeId: 'phvOZ79TUBc',
+        url: 'http://www.youtube.com/watch?v=phvOZ79TUBc',
+        date: '2026-01-13'
+      }
+    ];
+
+    const mediaGrid = document.getElementById('mediaGrid');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const uploadModal = document.getElementById('uploadModal');
+    const viewModal = document.getElementById('viewModal');
+
+    function renderGrid(filter = 'all') {
+      mediaGrid.innerHTML = '';
+      let music = 0, vlogs = 0, photos = 0;
+
+      mediaItems.forEach(item => {
+        if (item.category === 'music') music++;
+        if (item.category === 'vlog') vlogs++;
+        if (item.category === 'photo') photos++;
+
+        if (filter !== 'all' && item.category !== filter) return;
+
+        const card = document.createElement('div');
+        card.className = 'media-card';
+        card.onclick = () => openViewer(item);
+
+        let mediaPreview;
+        if (item.fileType === 'youtube') {
+          mediaPreview = `<img src="https://img.youtube.com/vi/${item.youtubeId}/hqdefault.jpg" alt="${item.title}">`;
+        } else if (item.fileType === 'video') {
+          mediaPreview = `<video src="${item.url}#t=0.5" preload="metadata"></video>`;
+        } else {
+          mediaPreview = `<img src="${item.url}" alt="${item.title}">`;
+        }
+
+        card.innerHTML = `
+          <div class="thumbnail-wrapper">
+            ${mediaPreview}
+            <span class="badge-type">${item.category}</span>
+          </div>
+          <div class="card-body">
+            <div class="card-title">${item.title}</div>
+            <div class="card-meta">Uploaded ${item.date}</div>
+          </div>
+        `;
+        mediaGrid.appendChild(card);
+      });
+
+      document.getElementById('trackCount').textContent = music;
+      document.getElementById('vlogCount').textContent = vlogs;
+      document.getElementById('photoCount').textContent = photos;
+    }
+
+    // Filter Controls
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderGrid(btn.dataset.filter);
+      });
+    });
+
+    // Upload Handler
+    document.getElementById('openUploadBtn').onclick = () => uploadModal.classList.add('active');
+    document.getElementById('closeUploadBtn').onclick = () => uploadModal.classList.remove('active');
+
+    document.getElementById('uploadForm').onsubmit = (e) => {
+      e.preventDefault();
+      const title = document.getElementById('mediaTitle').value;
+      const category = document.getElementById('mediaCategory').value;
+      const file = document.getElementById('mediaFile').files[0];
+
+      if (file) {
+        const isVideo = file.type.startsWith('video/');
+        const newItem = {
+          id: Date.now().toString(),
+          title: title,
+          category: category,
+          fileType: isVideo ? 'video' : 'image',
+          url: URL.createObjectURL(file),
+          date: new Date().toISOString().split('T')[0]
+        };
+
+        mediaItems.unshift(newItem);
+        renderGrid();
+        uploadModal.classList.remove('active');
+        document.getElementById('uploadForm').reset();
+      }
+    };
+
+    // Viewer Handler
+    function openViewer(item) {
+      const container = document.getElementById('viewerContent');
+      document.getElementById('viewerTitle').textContent = item.title;
+
+      if (item.fileType === 'youtube') {
+        container.innerHTML = `<iframe src="https://www.youtube.com/embed/${item.youtubeId}?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+      } else if (item.fileType === 'video') {
+        container.innerHTML = `<video src="${item.url}" controls autoplay style="width:100%;"></video>`;
+      } else {
+        container.innerHTML = `<img src="${item.url}" style="max-width:100%; max-height:60vh; object-fit:contain;">`;
+      }
+      viewModal.classList.add('active');
+    }
+
+    document.getElementById('closeViewBtn').onclick = () => {
+      viewModal.classList.remove('active');
+      document.getElementById('viewerContent').innerHTML = '';
+    };
+
+    renderGrid();
+  </script>
+</body>
+</html>
